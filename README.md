@@ -3,11 +3,12 @@
 > Hybrid deterministic + LLM analysis for healthcare claim denials, built on the
 > EDI 837 (claim) and EDI 835 (remittance advice) schemas.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://denial-intelligence.streamlit.app)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://sapavatcharan-denial-intelligence-demostreamlit-app-7xpveh.streamlit.app)
 &nbsp;[![Deploy your own](https://img.shields.io/badge/Deploy-Streamlit_Cloud-FF4B4B?logo=streamlit&logoColor=white)](https://share.streamlit.io/deploy?repository=sapavatcharan%2Fdenial-intelligence&branch=main&mainModule=demo%2Fstreamlit_app.py)
 
-**Live demo:** https://denial-intelligence.streamlit.app
-*(running with the deterministic mock LLM by default; add an `OPENAI_API_KEY` Streamlit secret to switch to GPT-4o.)*
+**Live demo:** https://sapavatcharan-denial-intelligence-demostreamlit-app-7xpveh.streamlit.app
+
+*(Running with the deterministic mock LLM by default - the demo is fully functional without any API key. Add an `OPENAI_API_KEY` Streamlit secret to switch verdicts to live GPT-4o / GPT-4o-mini reasoning.)*
 
 The system answers three questions a billing team asks every morning:
 
