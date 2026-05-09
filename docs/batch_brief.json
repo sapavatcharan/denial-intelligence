@@ -1,0 +1,353 @@
+[
+  {
+    "cluster_id": "MEDICARE|missing_info|274",
+    "payer_id": "MEDICARE",
+    "payer_name": "Medicare Part B",
+    "carc_code": "16",
+    "carc_family": "missing_info",
+    "procedure_family": "274",
+    "n_claims": 2,
+    "total_denied_amount": 44800.0,
+    "top_procedures": [
+      [
+        "27447",
+        2
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "M17.11",
+        2
+      ]
+    ],
+    "claim_ids": [
+      "CLM-2026-00287",
+      "CLM-SYN-16-001"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 2 Medicare Part B claim(s) totaling $44,800.00 denied with CARC 16 (Claim/service lacks information or has submission/billing error(s) which is needed for adjudication.). Top procedure(s): 27447. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. Populate the field(s) called out by the RARC code and resubmit corrected claims."
+  },
+  {
+    "cluster_id": "UHC|coding|274",
+    "payer_id": "UHC",
+    "payer_name": "United Healthcare",
+    "carc_code": "4",
+    "carc_family": "coding",
+    "procedure_family": "274",
+    "n_claims": 1,
+    "total_denied_amount": 32000.0,
+    "top_procedures": [
+      [
+        "27447",
+        1
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "M17.11",
+        1
+      ]
+    ],
+    "claim_ids": [
+      "CLM-SYN-4-001"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 1 United Healthcare claim(s) totaling $32,000.00 denied with CARC 4 (The procedure code is inconsistent with the modifier used, or a required modifier is missing.). Top procedure(s): 27447. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. Apply the missing modifier and resubmit corrected claims via the coding team."
+  },
+  {
+    "cluster_id": "UHC|duplicate|274",
+    "payer_id": "UHC",
+    "payer_name": "United Healthcare",
+    "carc_code": "18",
+    "carc_family": "duplicate",
+    "procedure_family": "274",
+    "n_claims": 1,
+    "total_denied_amount": 32000.0,
+    "top_procedures": [
+      [
+        "27447",
+        1
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "M17.11",
+        1
+      ]
+    ],
+    "claim_ids": [
+      "CLM-ADV-18-BILATERAL"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 1 United Healthcare claim(s) totaling $32,000.00 denied with CARC 18 (Exact duplicate claim/service.). Top procedure(s): 27447. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. Verify against the claim history; for paired-organ services, append LT/RT modifiers and resubmit."
+  },
+  {
+    "cluster_id": "AETNA|medical_necessity|721",
+    "payer_id": "AETNA",
+    "payer_name": "Aetna",
+    "carc_code": "50",
+    "carc_family": "medical_necessity",
+    "procedure_family": "721",
+    "n_claims": 4,
+    "total_denied_amount": 12700.0,
+    "top_procedures": [
+      [
+        "72148",
+        4
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "M54.5",
+        2
+      ],
+      [
+        "Z00.00",
+        1
+      ],
+      [
+        "M51.16",
+        1
+      ]
+    ],
+    "claim_ids": [
+      "CLM-2026-00391",
+      "CLM-SYN-50-001",
+      "CLM-ADV-50-DIAG2",
+      "CLM-ADV-50-PRINCIPAL-OK"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 4 Aetna claim(s) totaling $12,700.00 denied with CARC 50 (These are non-covered services because this is not deemed a 'medical necessity' by the payer.). Top procedure(s): 72148. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. Route to the coding team to repoint diagnoses or attach LCD/NCD-supportive documentation, then appeal."
+  },
+  {
+    "cluster_id": "AETNA|prior_auth|705",
+    "payer_id": "AETNA",
+    "payer_name": "Aetna",
+    "carc_code": "197",
+    "carc_family": "prior_auth",
+    "procedure_family": "705",
+    "n_claims": 2,
+    "total_denied_amount": 4800.0,
+    "top_procedures": [
+      [
+        "70553",
+        2
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "G44.1",
+        2
+      ]
+    ],
+    "claim_ids": [
+      "CLM-SYN-197-001",
+      "CLM-ADV-197-AUTH-PRESENT"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 2 Aetna claim(s) totaling $4,800.00 denied with CARC 197 (Precertification/authorization/notification/pre-treatment absent.). Top procedure(s): 70553. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. Escalate to the prior-authorization team to obtain or re-attach authorization numbers and resubmit."
+  },
+  {
+    "cluster_id": "BCBS-IL|timely_filing|992",
+    "payer_id": "BCBS-IL",
+    "payer_name": "Blue Cross Blue Shield",
+    "carc_code": "29",
+    "carc_family": "timely_filing",
+    "procedure_family": "992",
+    "n_claims": 1,
+    "total_denied_amount": 4500.0,
+    "top_procedures": [
+      [
+        "99214",
+        1
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "J06.9",
+        1
+      ]
+    ],
+    "claim_ids": [
+      "CLM-2026-00142"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 1 Blue Cross Blue Shield claim(s) totaling $4,500.00 denied with CARC 29 (The time limit for filing has expired.). Top procedure(s): 99214. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. If a delay reason exists, submit a timely-filing appeal with documentation; otherwise write off."
+  },
+  {
+    "cluster_id": "UHC|duplicate|992",
+    "payer_id": "UHC",
+    "payer_name": "United Healthcare",
+    "carc_code": "18",
+    "carc_family": "duplicate",
+    "procedure_family": "992",
+    "n_claims": 2,
+    "total_denied_amount": 3380.0,
+    "top_procedures": [
+      [
+        "99213",
+        2
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "J20.9",
+        2
+      ]
+    ],
+    "claim_ids": [
+      "CLM-2026-00455",
+      "CLM-SYN-18-001"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 2 United Healthcare claim(s) totaling $3,380.00 denied with CARC 18 (Exact duplicate claim/service.). Top procedure(s): 99213. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. Verify against the claim history; for paired-organ services, append LT/RT modifiers and resubmit."
+  },
+  {
+    "cluster_id": "MEDICARE|missing_info|705",
+    "payer_id": "MEDICARE",
+    "payer_name": "Medicare Part B",
+    "carc_code": "252",
+    "carc_family": "missing_info",
+    "procedure_family": "705",
+    "n_claims": 1,
+    "total_denied_amount": 2400.0,
+    "top_procedures": [
+      [
+        "70553",
+        1
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "S06.0X0A",
+        1
+      ]
+    ],
+    "claim_ids": [
+      "CLM-SYN-252-001"
+    ],
+    "historical_recovery_proxy": 0.361,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 1 Medicare Part B claim(s) totaling $2,400.00 denied with CARC 252 (An attachment/other documentation is required to adjudicate this claim/service.). Top procedure(s): 70553. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 36%. Populate the field(s) called out by the RARC code and resubmit corrected claims."
+  },
+  {
+    "cluster_id": "HUMANA|medical_necessity|453",
+    "payer_id": "HUMANA",
+    "payer_name": "Humana",
+    "carc_code": "11",
+    "carc_family": "medical_necessity",
+    "procedure_family": "453",
+    "n_claims": 1,
+    "total_denied_amount": 1200.0,
+    "top_procedures": [
+      [
+        "45378",
+        1
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "Z00.00",
+        1
+      ]
+    ],
+    "claim_ids": [
+      "CLM-SYN-11-001"
+    ],
+    "historical_recovery_proxy": 0.563,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 1 Humana claim(s) totaling $1,200.00 denied with CARC 11 (The diagnosis is inconsistent with the procedure.). Top procedure(s): 45378. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 56%. Route to the coding team to repoint diagnoses or attach LCD/NCD-supportive documentation, then appeal."
+  },
+  {
+    "cluster_id": "CIGNA|duplicate|110",
+    "payer_id": "CIGNA",
+    "payer_name": "Cigna",
+    "carc_code": "97",
+    "carc_family": "duplicate",
+    "procedure_family": "110",
+    "n_claims": 1,
+    "total_denied_amount": 600.0,
+    "top_procedures": [
+      [
+        "11042",
+        1
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "L97.213",
+        1
+      ]
+    ],
+    "claim_ids": [
+      "CLM-SYN-97-001"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 1 Cigna claim(s) totaling $600.00 denied with CARC 97 (The benefit for this service is included in the payment/allowance for another service that has already been adjudicated.). Top procedure(s): 11042. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. Verify against the claim history; for paired-organ services, append LT/RT modifiers and resubmit."
+  },
+  {
+    "cluster_id": "AETNA|timely_filing|992",
+    "payer_id": "AETNA",
+    "payer_name": "Aetna",
+    "carc_code": "29",
+    "carc_family": "timely_filing",
+    "procedure_family": "992",
+    "n_claims": 2,
+    "total_denied_amount": 560.0,
+    "top_procedures": [
+      [
+        "99214",
+        2
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "J06.9",
+        2
+      ]
+    ],
+    "claim_ids": [
+      "CLM-SYN-29-001",
+      "CLM-ADV-29-SECONDARY"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 2 Aetna claim(s) totaling $560.00 denied with CARC 29 (The time limit for filing has expired.). Top procedure(s): 99214. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. If a delay reason exists, submit a timely-filing appeal with documentation; otherwise write off."
+  },
+  {
+    "cluster_id": "UHC|timely_filing|992",
+    "payer_id": "UHC",
+    "payer_name": "United Healthcare",
+    "carc_code": "29",
+    "carc_family": "timely_filing",
+    "procedure_family": "992",
+    "n_claims": 1,
+    "total_denied_amount": 180.0,
+    "top_procedures": [
+      [
+        "99213",
+        1
+      ]
+    ],
+    "top_diagnoses": [
+      [
+        "J20.9",
+        1
+      ]
+    ],
+    "claim_ids": [
+      "CLM-ADV-29-DELAY-REASON"
+    ],
+    "historical_recovery_proxy": 0.0,
+    "historical_denial_rate": 1.0,
+    "narrative": "You have 1 United Healthcare claim(s) totaling $180.00 denied with CARC 29 (The time limit for filing has expired.). Top procedure(s): 99213. Historical denial rate for this payer/procedure pair is 100%; historical paid share is 0%. If a delay reason exists, submit a timely-filing appeal with documentation; otherwise write off."
+  }
+]

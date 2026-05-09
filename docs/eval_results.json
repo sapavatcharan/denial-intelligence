@@ -1,0 +1,562 @@
+{
+  "summary": {
+    "n_evaluated": 19,
+    "accuracy": 0.947,
+    "macro_f1": 0.958,
+    "evidence_grounding_rate": 1.0,
+    "brier_score": 0.1318,
+    "keyword_recall": 0.816,
+    "total_cost_usd": 0.0,
+    "total_latency_ms": 111,
+    "avg_latency_ms": 5.8
+  },
+  "label_distribution": {
+    "not_recoverable": 2,
+    "recoverable": 10,
+    "needs_review": 7
+  },
+  "macro_f1_per_class": {
+    "needs_review": {
+      "precision": 1.0,
+      "recall": 0.857,
+      "f1": 0.923
+    },
+    "not_recoverable": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "recoverable": {
+      "precision": 0.909,
+      "recall": 1.0,
+      "f1": 0.952
+    }
+  },
+  "confusion_matrix": {
+    "needs_review": {
+      "needs_review": 6,
+      "not_recoverable": 0,
+      "recoverable": 1
+    },
+    "not_recoverable": {
+      "needs_review": 0,
+      "not_recoverable": 2,
+      "recoverable": 0
+    },
+    "recoverable": {
+      "needs_review": 0,
+      "not_recoverable": 0,
+      "recoverable": 10
+    }
+  },
+  "scenario_breakdown": {
+    "brief_sample_A_timely_filing": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "brief_sample_B_missing_info_modifier": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "brief_sample_C_medical_necessity_secondary_dx": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "brief_sample_D_duplicate": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "textbook_timely_filing": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "textbook_missing_info": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "textbook_medical_necessity": {
+      "n": 1.0,
+      "correct": 0.0,
+      "accuracy": 0.0
+    },
+    "textbook_duplicate": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "textbook_prior_auth_missing": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "textbook_coding_modifier": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "textbook_bundling": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "textbook_attachment_required": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "textbook_dx_proc_inconsistent": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "adversarial_29_secondary_anchor": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "adversarial_50_repoint_to_diag2": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "adversarial_18_bilateral_missing_modifier": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "adversarial_197_auth_present_appeal": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "adversarial_29_delay_reason_present": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    },
+    "adversarial_50_principal_supports_appeal_strong": {
+      "n": 1.0,
+      "correct": 1.0,
+      "accuracy": 1.0
+    }
+  },
+  "rows": [
+    {
+      "claim_id": "CLM-2026-00142",
+      "scenario": "brief_sample_A_timely_filing",
+      "expected": "not_recoverable",
+      "predicted": "not_recoverable",
+      "correct": true,
+      "confidence": 0.6,
+      "grounding_violations": 0,
+      "n_evidence": 4,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "timely filing",
+        "BCBS",
+        "180"
+      ],
+      "keywords_present": [
+        "BCBS",
+        "180"
+      ]
+    },
+    {
+      "claim_id": "CLM-2026-00287",
+      "scenario": "brief_sample_B_missing_info_modifier",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.6,
+      "grounding_violations": 0,
+      "n_evidence": 6,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "missing",
+        "modifier",
+        "27447"
+      ],
+      "keywords_present": [
+        "missing",
+        "modifier",
+        "27447"
+      ]
+    },
+    {
+      "claim_id": "CLM-2026-00391",
+      "scenario": "brief_sample_C_medical_necessity_secondary_dx",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.725,
+      "grounding_violations": 0,
+      "n_evidence": 4,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "medical necessity",
+        "M51.16",
+        "repoint"
+      ],
+      "keywords_present": [
+        "medical necessity",
+        "repoint"
+      ]
+    },
+    {
+      "claim_id": "CLM-2026-00455",
+      "scenario": "brief_sample_D_duplicate",
+      "expected": "needs_review",
+      "predicted": "needs_review",
+      "correct": true,
+      "confidence": 0.725,
+      "grounding_violations": 0,
+      "n_evidence": 4,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "duplicate",
+        "history"
+      ],
+      "keywords_present": [
+        "duplicate"
+      ]
+    },
+    {
+      "claim_id": "CLM-SYN-29-001",
+      "scenario": "textbook_timely_filing",
+      "expected": "not_recoverable",
+      "predicted": "not_recoverable",
+      "correct": true,
+      "confidence": 0.6,
+      "grounding_violations": 0,
+      "n_evidence": 4,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "timely",
+        "278",
+        "90"
+      ],
+      "keywords_present": [
+        "timely",
+        "278",
+        "90"
+      ]
+    },
+    {
+      "claim_id": "CLM-SYN-16-001",
+      "scenario": "textbook_missing_info",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.6,
+      "grounding_violations": 0,
+      "n_evidence": 6,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "modifier",
+        "N20"
+      ],
+      "keywords_present": [
+        "modifier",
+        "N20"
+      ]
+    },
+    {
+      "claim_id": "CLM-SYN-50-001",
+      "scenario": "textbook_medical_necessity",
+      "expected": "needs_review",
+      "predicted": "recoverable",
+      "correct": false,
+      "confidence": 0.725,
+      "grounding_violations": 0,
+      "n_evidence": 4,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "medical necessity",
+        "M54.5"
+      ],
+      "keywords_present": [
+        "medical necessity",
+        "M54.5"
+      ]
+    },
+    {
+      "claim_id": "CLM-SYN-18-001",
+      "scenario": "textbook_duplicate",
+      "expected": "needs_review",
+      "predicted": "needs_review",
+      "correct": true,
+      "confidence": 0.725,
+      "grounding_violations": 0,
+      "n_evidence": 4,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "duplicate"
+      ],
+      "keywords_present": [
+        "duplicate"
+      ]
+    },
+    {
+      "claim_id": "CLM-SYN-197-001",
+      "scenario": "textbook_prior_auth_missing",
+      "expected": "needs_review",
+      "predicted": "needs_review",
+      "correct": true,
+      "confidence": 0.683,
+      "grounding_violations": 0,
+      "n_evidence": 3,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "prior authorization",
+        "Aetna"
+      ],
+      "keywords_present": [
+        "prior authorization",
+        "Aetna"
+      ]
+    },
+    {
+      "claim_id": "CLM-SYN-4-001",
+      "scenario": "textbook_coding_modifier",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.55,
+      "grounding_violations": 0,
+      "n_evidence": 5,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "modifier",
+        "LT",
+        "RT"
+      ],
+      "keywords_present": [
+        "modifier",
+        "LT",
+        "RT"
+      ]
+    },
+    {
+      "claim_id": "CLM-SYN-97-001",
+      "scenario": "textbook_bundling",
+      "expected": "needs_review",
+      "predicted": "needs_review",
+      "correct": true,
+      "confidence": 0.85,
+      "grounding_violations": 0,
+      "n_evidence": 3,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "bundled",
+        "59"
+      ],
+      "keywords_present": [
+        "59"
+      ]
+    },
+    {
+      "claim_id": "CLM-SYN-252-001",
+      "scenario": "textbook_attachment_required",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.725,
+      "grounding_violations": 0,
+      "n_evidence": 4,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "documentation",
+        "attachment"
+      ],
+      "keywords_present": []
+    },
+    {
+      "claim_id": "CLM-SYN-11-001",
+      "scenario": "textbook_dx_proc_inconsistent",
+      "expected": "needs_review",
+      "predicted": "needs_review",
+      "correct": true,
+      "confidence": 0.683,
+      "grounding_violations": 0,
+      "n_evidence": 3,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "diagnosis",
+        "procedure"
+      ],
+      "keywords_present": [
+        "diagnosis",
+        "procedure"
+      ]
+    },
+    {
+      "claim_id": "CLM-ADV-29-SECONDARY",
+      "scenario": "adversarial_29_secondary_anchor",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.75,
+      "grounding_violations": 0,
+      "n_evidence": 5,
+      "cost_usd": 0.0,
+      "latency_ms": 5,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "secondary",
+        "EOB",
+        "appeal"
+      ],
+      "keywords_present": [
+        "secondary",
+        "appeal"
+      ]
+    },
+    {
+      "claim_id": "CLM-ADV-50-DIAG2",
+      "scenario": "adversarial_50_repoint_to_diag2",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.683,
+      "grounding_violations": 0,
+      "n_evidence": 3,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "secondary",
+        "diagnosis",
+        "M51.16",
+        "repoint"
+      ],
+      "keywords_present": [
+        "secondary",
+        "diagnosis",
+        "M51.16",
+        "repoint"
+      ]
+    },
+    {
+      "claim_id": "CLM-ADV-18-BILATERAL",
+      "scenario": "adversarial_18_bilateral_missing_modifier",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.55,
+      "grounding_violations": 0,
+      "n_evidence": 5,
+      "cost_usd": 0.0,
+      "latency_ms": 5,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "bilateral",
+        "LT",
+        "RT",
+        "modifier"
+      ],
+      "keywords_present": [
+        "LT",
+        "RT",
+        "modifier"
+      ]
+    },
+    {
+      "claim_id": "CLM-ADV-197-AUTH-PRESENT",
+      "scenario": "adversarial_197_auth_present_appeal",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.85,
+      "grounding_violations": 0,
+      "n_evidence": 3,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "authorization",
+        "AUTH-AET-441900",
+        "appeal"
+      ],
+      "keywords_present": [
+        "authorization",
+        "appeal"
+      ]
+    },
+    {
+      "claim_id": "CLM-ADV-29-DELAY-REASON",
+      "scenario": "adversarial_29_delay_reason_present",
+      "expected": "needs_review",
+      "predicted": "needs_review",
+      "correct": true,
+      "confidence": 0.65,
+      "grounding_violations": 0,
+      "n_evidence": 5,
+      "cost_usd": 0.0,
+      "latency_ms": 6,
+      "model_used": "mock:gpt-4o",
+      "keywords_expected": [
+        "delay reason",
+        "appeal"
+      ],
+      "keywords_present": [
+        "delay reason",
+        "appeal"
+      ]
+    },
+    {
+      "claim_id": "CLM-ADV-50-PRINCIPAL-OK",
+      "scenario": "adversarial_50_principal_supports_appeal_strong",
+      "expected": "recoverable",
+      "predicted": "recoverable",
+      "correct": true,
+      "confidence": 0.683,
+      "grounding_violations": 0,
+      "n_evidence": 3,
+      "cost_usd": 0.0,
+      "latency_ms": 5,
+      "model_used": "mock:gpt-4o-mini",
+      "keywords_expected": [
+        "M51.16",
+        "supportive",
+        "appeal"
+      ],
+      "keywords_present": [
+        "M51.16",
+        "supportive",
+        "appeal"
+      ]
+    }
+  ]
+}
