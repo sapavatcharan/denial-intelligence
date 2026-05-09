@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "source": "Curated subset of common Medicare LCD/NCD-supported diagnosis-to-procedure pairings. NOT a complete coverage policy database. Used only as a deterministic first-pass check before deferring to the LLM reasoner.",
+    "schema": "Each procedure_code maps to a list of ICD-10 prefixes that are commonly accepted as supportive. A match is at the prefix level (e.g., 'M17' matches 'M17.11')."
+  },
+  "procedures": {
+    "27447": {
+      "description": "Total knee arthroplasty",
+      "supportive_dx_prefixes": ["M17", "Z47.1", "M25.561", "M25.562"],
+      "requires_prior_auth_payers": ["AETNA", "UHC", "CIGNA", "HUMANA"],
+      "common_required_modifiers": ["LT", "RT"]
+    },
+    "29881": {
+      "description": "Knee arthroscopy with meniscectomy",
+      "supportive_dx_prefixes": ["S83.2", "M23"],
+      "requires_prior_auth_payers": ["UHC", "AETNA"],
+      "common_required_modifiers": ["LT", "RT"]
+    },
+    "72148": {
+      "description": "MRI lumbar spine without contrast",
+      "supportive_dx_prefixes": ["M51", "M54.5", "M54.4", "M54.16", "M54.17", "G55", "S33"],
+      "requires_prior_auth_payers": ["AETNA", "UHC", "CIGNA", "HUMANA"],
+      "common_required_modifiers": []
+    },
+    "70553": {
+      "description": "MRI brain with and without contrast",
+      "supportive_dx_prefixes": ["G44", "G43", "R51", "R55", "C71", "S06"],
+      "requires_prior_auth_payers": ["AETNA", "UHC", "CIGNA", "HUMANA"],
+      "common_required_modifiers": []
+    },
+    "99213": {
+      "description": "Office visit, established patient, low complexity",
+      "supportive_dx_prefixes": ["any"],
+      "requires_prior_auth_payers": [],
+      "common_required_modifiers": ["25"]
+    },
+    "99214": {
+      "description": "Office visit, established patient, moderate complexity",
+      "supportive_dx_prefixes": ["any"],
+      "requires_prior_auth_payers": [],
+      "common_required_modifiers": ["25"]
+    },
+    "93000": {
+      "description": "Electrocardiogram, complete",
+      "supportive_dx_prefixes": ["I", "R00", "R07", "R55", "Z01.810"],
+      "requires_prior_auth_payers": [],
+      "common_required_modifiers": []
+    },
+    "45378": {
+      "description": "Diagnostic colonoscopy",
+      "supportive_dx_prefixes": ["K", "R19", "Z12.11", "D12"],
+      "requires_prior_auth_payers": ["AETNA"],
+      "common_required_modifiers": []
+    },
+    "11042": {
+      "description": "Debridement, subcutaneous tissue",
+      "supportive_dx_prefixes": ["L", "S", "T", "I70", "I96"],
+      "requires_prior_auth_payers": [],
+      "common_required_modifiers": []
+    },
+    "20610": {
+      "description": "Arthrocentesis, major joint",
+      "supportive_dx_prefixes": ["M", "S"],
+      "requires_prior_auth_payers": [],
+      "common_required_modifiers": ["LT", "RT", "50"]
+    }
+  },
+  "modifier_rules": {
+    "_meta": "Minimal modifier validity rules. The coding extractor uses these as a deterministic first pass.",
+    "25": "Significant, separately identifiable E/M service on the same day as another procedure. Required when an E/M code is billed with a procedure on the same DOS.",
+    "26": "Professional component. Used when only the professional component of a service is billed.",
+    "59": "Distinct procedural service. Used when two services are normally bundled but were performed in distinct sessions or sites.",
+    "LT": "Left side. Required for paired-organ procedures performed on the left.",
+    "RT": "Right side. Required for paired-organ procedures performed on the right.",
+    "50": "Bilateral procedure. Used when a procedure was performed on both sides during the same session."
+  }
+}

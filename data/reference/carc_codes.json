@@ -1,0 +1,133 @@
+{
+  "_meta": {
+    "source": "X12 CARC list, curated subset of the highest-volume codes in US healthcare RCM",
+    "last_reviewed": "2026-04-01",
+    "notes": "Each entry includes the standard description, a denial family used by the evidence layer, the typical responsible party, and whether the denial is generally appealable. The 'family' field drives which deterministic extractor is invoked."
+  },
+  "4": {
+    "description": "The procedure code is inconsistent with the modifier used, or a required modifier is missing.",
+    "family": "coding",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Verify and resubmit with the correct modifier (often 25, 26, 59, LT, RT, 50)."
+  },
+  "11": {
+    "description": "The diagnosis is inconsistent with the procedure.",
+    "family": "medical_necessity",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Repoint diagnosis pointers to a supportive secondary diagnosis or add a more specific ICD-10 code."
+  },
+  "16": {
+    "description": "Claim/service lacks information or has submission/billing error(s) which is needed for adjudication.",
+    "family": "missing_info",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Inspect accompanying RARC codes (e.g., N20, N350, N386) to identify the specific missing field, correct, and resubmit."
+  },
+  "18": {
+    "description": "Exact duplicate claim/service.",
+    "family": "duplicate",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Confirm against historical claims; if legitimately a repeat service (e.g., bilateral procedure), resubmit with appropriate modifiers (LT/RT/50/59) and documentation."
+  },
+  "22": {
+    "description": "This care may be covered by another payer per coordination of benefits.",
+    "family": "cob",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Identify primary payer and resubmit; if already submitted to primary, attach the primary EOB."
+  },
+  "27": {
+    "description": "Expenses incurred after coverage terminated.",
+    "family": "eligibility",
+    "typical_responsibility": "patient",
+    "generally_appealable": false,
+    "common_resolution": "Bill the patient or verify eligibility on the date of service."
+  },
+  "29": {
+    "description": "The time limit for filing has expired.",
+    "family": "timely_filing",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "If a delay reason code applies (corrected claim, secondary, payer error), submit appeal with documentation; otherwise denial generally stands."
+  },
+  "45": {
+    "description": "Charge exceeds fee schedule/maximum allowable or contracted/legislated fee arrangement.",
+    "family": "contractual",
+    "typical_responsibility": "provider",
+    "generally_appealable": false,
+    "common_resolution": "Contractual write-off; verify fee schedule is current."
+  },
+  "50": {
+    "description": "These are non-covered services because this is not deemed a 'medical necessity' by the payer.",
+    "family": "medical_necessity",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Validate diagnosis-procedure compatibility; consider repointing to a supportive secondary diagnosis or appealing with clinical documentation."
+  },
+  "96": {
+    "description": "Non-covered charge(s).",
+    "family": "non_covered",
+    "typical_responsibility": "patient_or_provider",
+    "generally_appealable": false,
+    "common_resolution": "Verify benefit; if patient signed an ABN, bill the patient."
+  },
+  "97": {
+    "description": "The benefit for this service is included in the payment/allowance for another service that has already been adjudicated.",
+    "family": "duplicate",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Bundling/NCCI edit. If services are clinically distinct, append modifier 59 or appropriate X-modifier with documentation."
+  },
+  "109": {
+    "description": "Claim/service not covered by this payer/contractor. You must send the claim/service to the correct payer/contractor.",
+    "family": "routing",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Identify correct payer (often a Medicare Advantage plan instead of FFS Medicare) and resubmit."
+  },
+  "151": {
+    "description": "Payment adjusted because the payer deems the information submitted does not support this many/frequency of services.",
+    "family": "frequency",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Validate units and frequency limits; appeal with documentation if medically necessary."
+  },
+  "167": {
+    "description": "This (these) diagnosis(es) is (are) not covered.",
+    "family": "medical_necessity",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Check LCD/NCD covered diagnoses; repoint or add a covered diagnosis if clinically applicable."
+  },
+  "197": {
+    "description": "Precertification/authorization/notification/pre-treatment absent.",
+    "family": "prior_auth",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "If prior auth was obtained, resubmit with the auth number; if not obtained, request a retro-authorization with clinical justification."
+  },
+  "198": {
+    "description": "Precertification/notification/authorization/pre-treatment exceeded.",
+    "family": "prior_auth",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Request additional units or extension to existing authorization."
+  },
+  "204": {
+    "description": "This service/equipment/drug is not covered under the patient's current benefit plan.",
+    "family": "non_covered",
+    "typical_responsibility": "patient",
+    "generally_appealable": false,
+    "common_resolution": "Bill patient or verify benefits."
+  },
+  "252": {
+    "description": "An attachment/other documentation is required to adjudicate this claim/service.",
+    "family": "missing_info",
+    "typical_responsibility": "provider",
+    "generally_appealable": true,
+    "common_resolution": "Submit requested documentation (medical records, op note, lab results) per the accompanying RARC code."
+  }
+}

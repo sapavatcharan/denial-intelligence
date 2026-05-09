@@ -1,0 +1,31 @@
+{
+  "_meta": {
+    "source": "Public payer policy manuals as of 2026; values are days from date of service unless otherwise stated.",
+    "secondary_anchor_note": "When a claim is secondary, the timely filing window typically anchors to the primary EOB date, not the original date of service. The timely_filing extractor handles this when ec_OtherPayerPaidDate is present.",
+    "default_days": 180,
+    "default_source": "Conservative industry midpoint when payer is unknown."
+  },
+  "by_payer_id": {
+    "MEDICARE":   { "days": 365, "name": "Medicare FFS",                 "anchor": "service_date" },
+    "MCR-PARTB":  { "days": 365, "name": "Medicare Part B",              "anchor": "service_date" },
+    "MEDICAID":   { "days": 365, "name": "Medicaid (state default)",     "anchor": "service_date" },
+    "BCBS-IL":    { "days": 180, "name": "BCBS Illinois",                "anchor": "service_date" },
+    "BCBS-TX":    { "days": 95,  "name": "BCBS Texas",                   "anchor": "service_date" },
+    "BCBS-MI":    { "days": 365, "name": "BCBS Michigan",                "anchor": "service_date" },
+    "AETNA":      { "days": 90,  "name": "Aetna Commercial",             "anchor": "service_date" },
+    "CIGNA":      { "days": 90,  "name": "Cigna Commercial",             "anchor": "service_date" },
+    "UHC":        { "days": 90,  "name": "United Healthcare Commercial", "anchor": "service_date" },
+    "HUMANA":     { "days": 180, "name": "Humana Commercial",            "anchor": "service_date" },
+    "TRICARE":    { "days": 365, "name": "TRICARE",                      "anchor": "service_date" },
+    "VA":         { "days": 180, "name": "Veterans Affairs",             "anchor": "service_date" }
+  },
+  "by_insurance_type_default": {
+    "Medicare":   365,
+    "Medicaid":   365,
+    "Commercial": 90,
+    "TRICARE":    365,
+    "VA":         180,
+    "WorkersComp":365,
+    "AutoNoFault":180
+  }
+}

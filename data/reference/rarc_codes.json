@@ -1,0 +1,58 @@
+{
+  "_meta": {
+    "source": "X12 RARC list, curated subset of the highest-volume codes",
+    "notes": "RARCs provide supplemental context to a CARC. The 'missing_field_hint' field tells the missing_info evidence extractor which 837 field is most likely the cause."
+  },
+  "M51": {
+    "description": "Missing/incomplete/invalid procedure code(s).",
+    "missing_field_hint": ["pcl_ProcedureCode", "cd_ProcedureCode"]
+  },
+  "M76": {
+    "description": "Missing/incomplete/invalid diagnosis or condition.",
+    "missing_field_hint": ["ec_PrincipalDiagnosis"]
+  },
+  "M79": {
+    "description": "Missing/incomplete/invalid charge.",
+    "missing_field_hint": ["pcl_ChargedAmount"]
+  },
+  "MA130": {
+    "description": "Your claim contains incomplete and/or invalid information, and no appeal rights are afforded because the claim is unprocessable.",
+    "missing_field_hint": []
+  },
+  "N4": {
+    "description": "Missing/incomplete/invalid prior insurance carrier EOB.",
+    "missing_field_hint": ["ec_OtherPayerName", "ec_OtherPayerPaid"]
+  },
+  "N20": {
+    "description": "Service not payable with other service rendered on the same date.",
+    "missing_field_hint": ["pcl_ProcedureModifier1", "pcl_ProcedureModifier2"]
+  },
+  "N56": {
+    "description": "Procedure code billed is not correct/valid for the services billed or the date of service billed.",
+    "missing_field_hint": ["pcl_ProcedureCode"]
+  },
+  "N115": {
+    "description": "This decision was based on a Local Coverage Determination (LCD).",
+    "missing_field_hint": ["ec_PrincipalDiagnosis"]
+  },
+  "N130": {
+    "description": "Consult plan benefit documents/guidelines for information about restrictions for this service.",
+    "missing_field_hint": []
+  },
+  "N350": {
+    "description": "Missing/incomplete/invalid description of service for a Not Otherwise Classified (NOC) code.",
+    "missing_field_hint": ["pcl_SubmittedProcedureCodeDesc"]
+  },
+  "N386": {
+    "description": "This decision was based on a National Coverage Determination (NCD).",
+    "missing_field_hint": ["ec_PrincipalDiagnosis"]
+  },
+  "N522": {
+    "description": "Duplicate of a claim processed, or to be processed, as a crossover claim.",
+    "missing_field_hint": []
+  },
+  "N657": {
+    "description": "This should be billed with the appropriate code for these services.",
+    "missing_field_hint": ["pcl_ProcedureCode"]
+  }
+}
