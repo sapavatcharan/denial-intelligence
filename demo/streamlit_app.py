@@ -21,6 +21,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
+import os  # noqa: E402
+
 import pandas as pd  # noqa: E402
 import streamlit as st  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
@@ -33,6 +35,16 @@ from gabeo.reference import carc as carc_lookup  # noqa: E402
 from gabeo.retrieval import SimilarityIndex  # noqa: E402
 
 load_dotenv(ROOT / ".env")
+
+# Streamlit Cloud secrets bridge: copy any OPENAI_API_KEY from st.secrets into
+# the process env so the agent's existing resolver picks it up. If the user
+# hasn't added a secret, the agent falls back to MockLLMClient and the demo
+# still works end-to-end.
+try:
+    if "OPENAI_API_KEY" in st.secrets and st.secrets["OPENAI_API_KEY"]:
+        os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+except (FileNotFoundError, AttributeError):
+    pass
 
 st.set_page_config(page_title="Gabeo Denial AI", layout="wide", page_icon=":hospital:")
 

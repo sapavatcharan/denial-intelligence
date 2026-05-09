@@ -3,6 +3,12 @@
 > Hybrid deterministic + LLM analysis for healthcare claim denials, built on the
 > EDI 837 (claim) and EDI 835 (remittance advice) schemas.
 
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://denial-intelligence.streamlit.app)
+&nbsp;[![Deploy your own](https://img.shields.io/badge/Deploy-Streamlit_Cloud-FF4B4B?logo=streamlit&logoColor=white)](https://share.streamlit.io/deploy?repository=sapavatcharan%2Fdenial-intelligence&branch=main&mainModule=demo%2Fstreamlit_app.py)
+
+**Live demo:** https://denial-intelligence.streamlit.app
+*(running with the deterministic mock LLM by default; add an `OPENAI_API_KEY` Streamlit secret to switch to GPT-4o.)*
+
 The system answers three questions a billing team asks every morning:
 
 1. **Why was this claim denied, and is it recoverable?** (root-cause + recoverability + recommended action, every fact cited and grounded in the input data)
