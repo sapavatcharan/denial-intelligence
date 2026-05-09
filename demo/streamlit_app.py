@@ -104,14 +104,14 @@ def _claim_label(claim, gold) -> str:  # type: ignore[no-untyped-def]
 def _render_claim_panel(claim, gold) -> None:  # type: ignore[no-untyped-def]
     sub = claim.submission
     rem = claim.remittance
+    days_to_receipt: int | str = "?"
+    if sub and sub.service_date_from and rem and rem.received_date:
+        days_to_receipt = (rem.received_date - sub.service_date_from).days
     cols = st.columns(4)
     cols[0].metric("Charged", _format_money(rem.claim_amount if rem else 0.0))
     cols[1].metric("Paid", _format_money(rem.claim_paid if rem else 0.0))
     cols[2].metric("Primary CARC", claim.primary_carc or "PAID")
-    cols[3].metric(
-        "Days submission to receipt",
-        sub.days_from_service_to_receipt(rem.received_date if rem else None) if sub else "?",
-    )
+    cols[3].metric("Days service to receipt", days_to_receipt)
     if (info := carc_lookup(claim.primary_carc or "")):
         st.caption(
             f"**CARC {claim.primary_carc}** · {info['description']} "
@@ -263,13 +263,13 @@ def render_clusters_tab() -> None:
             {
                 "rank": i + 1,
                 "payer": c.get("payer_name") or c["payer_id"],
-                "carc": c["carc_code"],
+                "carc": str(c["carc_code"]),
                 "carc_family": c["carc_family"],
                 "proc_family": c["procedure_family"],
-                "claims": c["n_claims"],
-                "denied_$": c["total_denied_amount"],
-                "hist_denial_rate": c["historical_denial_rate"],
-                "hist_recovery_proxy": c["historical_recovery_proxy"],
+                "claims": int(c["n_claims"]),
+                "denied_$": float(c["total_denied_amount"]),
+                "hist_denial_rate": float(c["historical_denial_rate"]),
+                "hist_recovery_proxy": float(c["historical_recovery_proxy"]),
             }
             for i, c in enumerate(clusters)
         ]
@@ -321,8 +321,13 @@ def render_eval_tab() -> None:
     st.dataframe(pd.DataFrame(sb).T, use_container_width=True)
 
     st.subheader("Per-claim outcomes")
-    rows = pd.DataFrame(report["rows"])
-    st.dataframe(rows, use_container_width=True)
+    safe_rows = []
+    for r in report["rows"]:
+        rr = dict(r)
+        rr["keywords_expected"] = ", ".join(rr.get("keywords_expected") or [])
+        rr["keywords_present"] = ", ".join(rr.get("keywords_present") or [])
+        safe_rows.append(rr)
+    st.dataframe(pd.DataFrame(safe_rows), use_container_width=True)
 
 
 def render_brief_samples_tab() -> None:
@@ -335,6 +340,15 @@ def render_brief_samples_tab() -> None:
         )
         return
     st.markdown(brief_md.read_text())
+
+
+def _safe_tab(label: str, fn, *args) -> None:  # type: ignore[no-untyped-def]
+    """Render a tab inside an error boundary so a single tab can't kill the app."""
+    try:
+        fn(*args)
+    except Exception as exc:  # noqa: BLE001
+        st.error(f"The '{label}' tab hit an error. Other tabs still work.")
+        st.exception(exc)
 
 
 def main() -> None:
@@ -356,13 +370,13 @@ def main() -> None:
         ["Analyze a claim", "Batch brief", "Eval results", "Brief samples"]
     )
     with tab1:
-        render_analyze_tab(claims, gold, index, agent)
+        _safe_tab("Analyze a claim", render_analyze_tab, claims, gold, index, agent)
     with tab2:
-        render_clusters_tab()
+        _safe_tab("Batch brief", render_clusters_tab)
     with tab3:
-        render_eval_tab()
+        _safe_tab("Eval results", render_eval_tab)
     with tab4:
-        render_brief_samples_tab()
+        _safe_tab("Brief samples", render_brief_samples_tab)
 
 
 if __name__ == "__main__":
