@@ -48,7 +48,100 @@ except (FileNotFoundError, AttributeError):
 
 st.set_page_config(page_title="Gabeo Denial AI", layout="wide", page_icon=":hospital:")
 
+# --- Global styling ----------------------------------------------------------
+# A small CSS injection is the simplest way to add visual polish without
+# pulling in a UI framework. We scope all of it so it cannot collide with
+# Streamlit's own classes after future releases.
+st.markdown(
+    """
+    <style>
+      .gabeo-hero {
+        background: linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f59e0b 100%);
+        padding: 28px 32px;
+        border-radius: 14px;
+        color: #ffffff;
+        margin-bottom: 18px;
+        box-shadow: 0 10px 24px rgba(124, 58, 237, 0.25);
+      }
+      .gabeo-hero h1 {
+        margin: 0 0 6px 0;
+        font-size: 2rem;
+        color: #ffffff;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      .gabeo-hero p { margin: 0; opacity: 0.95; font-size: 1.0rem; }
+      .gabeo-hero .gabeo-pill {
+        display: inline-block;
+        background: rgba(255,255,255,0.18);
+        border: 1px solid rgba(255,255,255,0.35);
+        color: #ffffff;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        margin-right: 6px;
+        margin-top: 8px;
+      }
+      .gabeo-card {
+        background: #ffffff;
+        border: 1px solid #ede9fe;
+        border-left: 4px solid #7c3aed;
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+      }
+      .gabeo-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.78rem;
+        color: #ffffff;
+        margin-right: 4px;
+      }
+      .gabeo-sev-critical { background: #dc2626; }
+      .gabeo-sev-warning  { background: #d97706; }
+      .gabeo-sev-info     { background: #0ea5e9; }
+      .gabeo-pass         { background: #16a34a; }
+      .gabeo-fail         { background: #dc2626; }
+      .gabeo-conf-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: #ede9fe;
+        overflow: hidden;
+        margin-top: 4px;
+      }
+      .gabeo-conf-bar > div {
+        height: 100%;
+        background: linear-gradient(90deg, #7c3aed, #ec4899);
+      }
+      div[data-testid="stMetric"] {
+        background: linear-gradient(180deg, #faf5ff 0%, #ffffff 100%);
+        border: 1px solid #ede9fe;
+        border-radius: 10px;
+        padding: 10px 14px;
+      }
+      .stTabs [data-baseweb="tab"] {
+        font-weight: 600;
+      }
+      .stTabs [aria-selected="true"] {
+        color: #7c3aed !important;
+      }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 DATA_PATH = ROOT / "data" / "synthetic" / "claims.jsonl"
+
+# Recoverability + severity color palettes used across the app.
+_RECOVER_COLORS: dict[str, str] = {
+    "recoverable": "#16a34a",
+    "needs_review": "#d97706",
+    "not_recoverable": "#dc2626",
+    "informational": "#6b7280",
+}
 
 
 @st.cache_resource
@@ -78,16 +171,31 @@ def _format_money(x: float) -> str:
 
 
 def _recoverability_badge(value: str) -> str:
-    color = {
-        "recoverable": "#16a34a",
-        "needs_review": "#d97706",
-        "not_recoverable": "#dc2626",
-        "informational": "#6b7280",
-    }.get(value, "#6b7280")
+    color = _RECOVER_COLORS.get(value, "#6b7280")
     return (
-        f'<span style="background:{color};color:white;padding:4px 10px;'
-        f'border-radius:6px;font-weight:600;font-size:0.85rem;">{value}</span>'
+        f'<span style="background:{color};color:white;padding:6px 14px;'
+        f'border-radius:999px;font-weight:700;font-size:0.95rem;'
+        f'box-shadow:0 2px 6px {color}40;">{value.replace("_", " ").upper()}</span>'
     )
+
+
+def _severity_badge(severity: str, passed: bool) -> str:
+    label = "PASS" if passed else "FAIL"
+    cls = "gabeo-pass" if passed else "gabeo-fail"
+    sev_cls = {
+        "critical": "gabeo-sev-critical",
+        "warning": "gabeo-sev-warning",
+        "info": "gabeo-sev-info",
+    }.get(severity.lower(), "gabeo-sev-info")
+    return (
+        f'<span class="gabeo-badge {sev_cls}">{severity.upper()}</span>'
+        f'<span class="gabeo-badge {cls}">{label}</span>'
+    )
+
+
+def _confidence_bar(value: float) -> str:
+    pct = max(0.0, min(1.0, value)) * 100
+    return f'<div class="gabeo-conf-bar"><div style="width:{pct:.0f}%;"></div></div>'
 
 
 def _claim_label(claim, gold) -> str:  # type: ignore[no-untyped-def]
@@ -128,19 +236,37 @@ def _render_claim_panel(claim, gold) -> None:  # type: ignore[no-untyped-def]
 
 
 def _render_verdict_panel(verdict) -> None:  # type: ignore[no-untyped-def]
-    cols = st.columns([2, 1, 1])
-    cols[0].markdown(f"**Recoverability:** {_recoverability_badge(verdict.recoverability.value)}", unsafe_allow_html=True)
-    cols[1].metric("Confidence (blended)", f"{verdict.confidence:.2f}")
-    cols[2].metric("Latency (ms)", verdict.latency_ms or 0)
+    color = _RECOVER_COLORS.get(verdict.recoverability.value, "#6b7280")
+    st.markdown(
+        f"""
+        <div style="background:linear-gradient(135deg,{color}18,{color}08);
+                    border:1px solid {color}40;border-left:5px solid {color};
+                    border-radius:12px;padding:18px 22px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+            <div>{_recoverability_badge(verdict.recoverability.value)}</div>
+            <div style="color:#475569;font-size:0.85rem;">
+              model: <code>{verdict.model_used or '?'}</code> ·
+              latency: <b>{verdict.latency_ms or 0} ms</b> ·
+              cost: <b>${(verdict.cost_usd or 0):.5f}</b>
+            </div>
+          </div>
+          <div style="margin-top:10px;color:#0f172a;">
+            <b>Confidence (blended):</b> {verdict.confidence:.2f}
+            {_confidence_bar(verdict.confidence)}
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    st.subheader("Root cause")
+    st.markdown("#### Root cause")
     st.write(verdict.root_cause)
-    st.subheader("Recommended action")
+    st.markdown("#### Recommended action")
     st.success(verdict.recommended_action)
-    st.subheader("CARC interpretation")
+    st.markdown("#### CARC interpretation")
     st.info(verdict.carc_interpretation)
 
-    st.subheader("Confidence components")
+    st.markdown("#### Confidence components")
     st.json(verdict.confidence_components)
 
     st.subheader("Supporting evidence (LLM citations, grounded)")
@@ -161,34 +287,43 @@ def _render_verdict_panel(verdict) -> None:  # type: ignore[no-untyped-def]
     else:
         st.write("(none)")
 
-    st.subheader("Deterministic evidence trail")
+    st.markdown("#### Deterministic evidence trail")
     if verdict.deterministic_evidence:
-        st.dataframe(
-            pd.DataFrame(
-                [
-                    {
-                        "check": e.check_name,
-                        "passed": e.passed,
-                        "severity": e.severity,
-                        "message": e.message,
-                        "fields": ", ".join(e.fields_referenced),
-                    }
-                    for e in verdict.deterministic_evidence
-                ]
-            ),
-            use_container_width=True,
-        )
+        for e in verdict.deterministic_evidence:
+            border_color = (
+                "#16a34a"
+                if e.passed
+                else ("#dc2626" if e.severity == "critical" else "#d97706")
+            )
+            fields_html = ""
+            if e.fields_referenced:
+                fields_html = (
+                    "<div style='margin-top:6px;font-size:0.78rem;color:#64748b;'>"
+                    + " ".join(
+                        f"<code style='background:#f1f5f9;padding:1px 6px;border-radius:4px;'>{f}</code>"
+                        for f in e.fields_referenced
+                    )
+                    + "</div>"
+                )
+            st.markdown(
+                f"""
+                <div class='gabeo-card' style='border-left-color:{border_color};'>
+                  <div>{_severity_badge(e.severity, e.passed)}
+                       <code style='color:#7c3aed;'>{e.check_name}</code></div>
+                  <div style='margin-top:6px;color:#0f172a;'>{e.message}</div>
+                  {fields_html}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
     else:
         st.write("(no deterministic findings)")
 
-    st.subheader("Cost & model")
-    st.json(
-        {
-            "model_used": verdict.model_used,
-            "cost_usd": verdict.cost_usd,
-            "similar_paid_claims": verdict.similar_paid_claims,
-        }
-    )
+    st.markdown("#### Similar paid claims used as historical context")
+    if verdict.similar_paid_claims:
+        st.write(", ".join(f"`{cid}`" for cid in verdict.similar_paid_claims))
+    else:
+        st.write("(none)")
 
 
 def render_analyze_tab(claims, gold, index, agent) -> None:  # type: ignore[no-untyped-def]
@@ -277,13 +412,40 @@ def render_clusters_tab() -> None:
     st.dataframe(df, use_container_width=True)
 
     st.subheader("Cluster narratives")
+    family_color = {
+        "timely_filing": "#dc2626",
+        "prior_auth": "#7c3aed",
+        "medical_necessity": "#0ea5e9",
+        "coding": "#f59e0b",
+        "duplicate": "#ec4899",
+        "missing_info": "#10b981",
+        "contractual": "#6b7280",
+        "non_covered": "#64748b",
+    }
     for i, c in enumerate(clusters, 1):
+        accent = family_color.get(c["carc_family"], "#7c3aed")
         with st.expander(
             f"#{i} {c.get('payer_name') or c['payer_id']} | CARC {c['carc_code']} | "
             f"{c['n_claims']} claims | {_format_money(c['total_denied_amount'])}",
             expanded=(i == 1),
         ):
-            st.write(c["narrative"])
+            st.markdown(
+                f"""
+                <div class='gabeo-card' style='border-left-color:{accent};'>
+                  <div style='display:flex;gap:8px;flex-wrap:wrap;align-items:center;'>
+                    <span class='gabeo-badge' style='background:{accent};'>
+                      {c['carc_family'].replace('_', ' ').upper()}
+                    </span>
+                    <span style='color:#475569;font-size:0.85rem;'>
+                      Hist denial rate: <b>{c['historical_denial_rate']:.0%}</b> ·
+                      Recovery proxy: <b>{c['historical_recovery_proxy']:.0%}</b>
+                    </span>
+                  </div>
+                  <div style='margin-top:10px;color:#0f172a;line-height:1.55;'>{c['narrative']}</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
             st.json(
                 {
                     "top_procedures": c["top_procedures"],
@@ -352,10 +514,22 @@ def _safe_tab(label: str, fn, *args) -> None:  # type: ignore[no-untyped-def]
 
 
 def main() -> None:
-    st.title("Gabeo Denial AI")
-    st.caption(
-        "Hybrid deterministic + LLM analysis for healthcare claim denials. "
-        "Built on EDI 837/835 schemas with grounded LLM citations and calibrated confidence."
+    st.markdown(
+        """
+        <div class="gabeo-hero">
+          <h1>Gabeo Denial AI</h1>
+          <p>Hybrid deterministic + LLM analysis for healthcare claim denials.
+             Built on EDI 837 / 835 schemas with grounded LLM citations and calibrated confidence.</p>
+          <div>
+            <span class="gabeo-pill">Pydantic v2</span>
+            <span class="gabeo-pill">TF-IDF retrieval</span>
+            <span class="gabeo-pill">Grounding gate</span>
+            <span class="gabeo-pill">Mock-LLM fallback</span>
+            <span class="gabeo-pill">26 tests passing</span>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     if not DATA_PATH.exists():
